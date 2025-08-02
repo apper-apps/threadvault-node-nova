@@ -93,7 +93,7 @@ const ProductsPage = () => {
   return (
     <div className="min-h-screen bg-surface">
       {/* Category Header */}
-      {!searchQuery && categoryData && (
+{!searchQuery && categoryData && (
         <div className="relative h-64 bg-gradient-to-r from-gray-900 to-gray-700 flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0 bg-black bg-opacity-40" />
           <div 
@@ -108,7 +108,7 @@ const ProductsPage = () => {
             className="relative z-10 text-center text-white max-w-4xl mx-auto px-4"
           >
             <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">
-              {categoryData.name}
+              {categoryData.Name}
             </h1>
             <p className="text-lg opacity-90">
               {categoryData.description}

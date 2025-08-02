@@ -109,8 +109,7 @@ const ProductDetailPage = () => {
       </div>
     );
   }
-
-  const discountedPrice = product.discount > 0 
+const discountedPrice = product.discount > 0 
     ? product.price - (product.price * product.discount / 100)
     : product.price;
 
@@ -118,14 +117,14 @@ const ProductDetailPage = () => {
     <div className="min-h-screen bg-surface">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumb */}
-        <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-8">
+<nav className="flex items-center space-x-2 text-sm text-gray-600 mb-8">
           <a href="/" className="hover:text-primary transition-colors">Home</a>
           <ApperIcon name="ChevronRight" size={14} />
           <a href="/products" className="hover:text-primary transition-colors">Products</a>
           <ApperIcon name="ChevronRight" size={14} />
           <span className="text-gray-900 font-medium capitalize">{product.category}</span>
           <ApperIcon name="ChevronRight" size={14} />
-          <span className="text-gray-900 font-medium truncate">{product.name}</span>
+          <span className="text-gray-900 font-medium truncate">{product.Name}</span>
         </nav>
 
         {/* Product Details */}
@@ -154,7 +153,7 @@ const ProductDetailPage = () => {
               <div className="flex items-start gap-3 mb-4">
                 <div className="flex-1">
                   <h1 className="text-3xl lg:text-4xl font-display font-bold text-gray-900 mb-2">
-                    {product.name}
+{product.Name}
                   </h1>
                   <p className="text-gray-600 capitalize">
                     {product.category} • {product.subcategory}
@@ -206,7 +205,7 @@ const ProductDetailPage = () => {
             <div>
               <h3 className="font-semibold text-lg mb-3">Size</h3>
               <div className="grid grid-cols-4 gap-2">
-                {product.sizes.map((size) => (
+                {(Array.isArray(product.sizes) ? product.sizes : [product.sizes]).map((size) => (
                   <button
                     key={size}
                     onClick={() => setSelectedSize(size)}
@@ -228,7 +227,7 @@ const ProductDetailPage = () => {
                 Color: <span className="font-normal text-gray-600">{selectedColor}</span>
               </h3>
               <div className="flex gap-3">
-                {product.colors.map((color) => (
+                {(Array.isArray(product.colors) ? product.colors : [product.colors]).map((color) => (
                   <button
                     key={color}
                     onClick={() => setSelectedColor(color)}

@@ -444,16 +444,16 @@ const CheckoutPage = () => {
 
                 {/* Cart Items */}
                 <div className="space-y-4 mb-6">
-                  {cartItems.map((item) => (
+{cartItems.map((item) => (
                     <div key={item.Id} className="flex gap-3">
                       <img
                         src={item.image}
-                        alt={item.name}
+                        alt={item.Name}
                         className="w-16 h-16 object-cover rounded-sm bg-surface"
                       />
                       <div className="flex-1 min-w-0">
                         <h4 className="font-medium text-sm truncate">
-                          {item.name}
+                          {item.Name}
                         </h4>
                         <p className="text-xs text-gray-500">
                           {item.size} • {item.color}

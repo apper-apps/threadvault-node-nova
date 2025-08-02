@@ -1,112 +1,268 @@
-const CART_STORAGE_KEY = "threadvault_cart";
-
-const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
 class CartService {
   constructor() {
-    this.loadFromStorage();
-  }
-
-  loadFromStorage() {
-    try {
-      const stored = localStorage.getItem(CART_STORAGE_KEY);
-      this.items = stored ? JSON.parse(stored) : [];
-    } catch (error) {
-      console.error("Failed to load cart from storage:", error);
-      this.items = [];
-    }
-  }
-
-  saveToStorage() {
-    try {
-      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(this.items));
-    } catch (error) {
-      console.error("Failed to save cart to storage:", error);
-    }
+    const { ApperClient } = window.ApperSDK;
+    this.apperClient = new ApperClient({
+      apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+      apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+    });
+    this.tableName = 'cart_item';
   }
 
   async getItems() {
-    await delay(100);
-    return [...this.items];
+    try {
+      const params = {
+        fields: [
+          { field: { Name: "Name" } },
+          { field: { Name: "productId" } },
+          { field: { Name: "price" } },
+          { field: { Name: "image" } },
+          { field: { Name: "size" } },
+          { field: { Name: "color" } },
+          { field: { Name: "quantity" } }
+        ],
+        orderBy: [
+          {
+            fieldName: "CreatedOn",
+            sorttype: "DESC"
+          }
+        ]
+      };
+
+      const response = await this.apperClient.fetchRecords(this.tableName, params);
+      
+      if (!response.success) {
+        console.error(response.message);
+        throw new Error(response.message);
+      }
+
+      if (!response.data || response.data.length === 0) {
+        return [];
+      }
+
+      return response.data;
+    } catch (error) {
+      if (error?.response?.data?.message) {
+        console.error("Error fetching cart items:", error?.response?.data?.message);
+        throw new Error(error?.response?.data?.message);
+      } else {
+        console.error("Error fetching cart items:", error.message);
+        throw new Error(error.message);
+      }
+    }
   }
 
   async addItem(product, options = {}) {
-    await delay(150);
-    
-    const cartItem = {
-      Id: Date.now(), // Unique cart item ID
-      productId: product.Id,
-      name: product.name,
-      price: product.price,
-      image: product.images[0],
-      size: options.size || product.sizes[0],
-      color: options.color || product.colors[0],
-      quantity: options.quantity || 1
-    };
+    try {
+      const cartItem = {
+        Name: product.Name,
+        productId: product.Id,
+        price: product.price,
+        image: Array.isArray(product.images) ? product.images[0] : product.images,
+        size: options.size || (Array.isArray(product.sizes) ? product.sizes[0] : product.sizes),
+        color: options.color || (Array.isArray(product.colors) ? product.colors[0] : product.colors),
+        quantity: options.quantity || 1
+      };
 
-    // Check if item with same product, size, and color already exists
-    const existingItemIndex = this.items.findIndex(item => 
-      item.productId === cartItem.productId && 
-      item.size === cartItem.size && 
-      item.color === cartItem.color
-    );
+      // Check if item with same product, size, and color already exists
+      const existingItems = await this.getItems();
+      const existingItem = existingItems.find(item => 
+        item.productId === cartItem.productId && 
+        item.size === cartItem.size && 
+        item.color === cartItem.color
+      );
 
-    if (existingItemIndex !== -1) {
-      this.items[existingItemIndex].quantity += cartItem.quantity;
-    } else {
-      this.items.push(cartItem);
+      if (existingItem) {
+        // Update existing item quantity
+        return await this.updateQuantity(existingItem.Id, existingItem.quantity + cartItem.quantity);
+      } else {
+        // Create new cart item
+        const params = {
+          records: [cartItem]
+        };
+
+        const response = await this.apperClient.createRecord(this.tableName, params);
+        
+        if (!response.success) {
+          console.error(response.message);
+          throw new Error(response.message);
+        }
+
+        if (response.results) {
+          const failedRecords = response.results.filter(result => !result.success);
+          
+          if (failedRecords.length > 0) {
+            console.error(`Failed to create cart item records:${JSON.stringify(failedRecords)}`);
+            
+            failedRecords.forEach(record => {
+              record.errors?.forEach(error => {
+                throw new Error(`${error.fieldLabel}: ${error.message}`);
+              });
+              if (record.message) throw new Error(record.message);
+            });
+          }
+          
+          const successfulRecords = response.results.filter(result => result.success);
+          return successfulRecords.length > 0 ? successfulRecords[0].data : cartItem;
+        }
+
+        return cartItem;
+      }
+    } catch (error) {
+      if (error?.response?.data?.message) {
+        console.error("Error adding item to cart:", error?.response?.data?.message);
+        throw new Error(error?.response?.data?.message);
+      } else {
+        console.error("Error adding item to cart:", error.message);
+        throw new Error(error.message);
+      }
     }
-
-    this.saveToStorage();
-    return { ...cartItem };
   }
 
   async updateQuantity(itemId, quantity) {
-    await delay(100);
-    
-    const itemIndex = this.items.findIndex(item => item.Id === parseInt(itemId));
-    if (itemIndex === -1) {
-      throw new Error(`Cart item with id ${itemId} not found`);
-    }
+    try {
+      if (quantity <= 0) {
+        return await this.removeItem(itemId);
+      }
 
-    if (quantity <= 0) {
-      this.items.splice(itemIndex, 1);
-    } else {
-      this.items[itemIndex].quantity = quantity;
-    }
+      const params = {
+        records: [
+          {
+            Id: parseInt(itemId),
+            quantity: quantity
+          }
+        ]
+      };
 
-    this.saveToStorage();
-    return [...this.items];
+      const response = await this.apperClient.updateRecord(this.tableName, params);
+      
+      if (!response.success) {
+        console.error(response.message);
+        throw new Error(response.message);
+      }
+
+      if (response.results) {
+        const failedUpdates = response.results.filter(result => !result.success);
+        
+        if (failedUpdates.length > 0) {
+          console.error(`Failed to update cart item records:${JSON.stringify(failedUpdates)}`);
+          
+          failedUpdates.forEach(record => {
+            record.errors?.forEach(error => {
+              throw new Error(`${error.fieldLabel}: ${error.message}`);
+            });
+            if (record.message) throw new Error(record.message);
+          });
+        }
+      }
+
+      return await this.getItems();
+    } catch (error) {
+      if (error?.response?.data?.message) {
+        console.error("Error updating cart item quantity:", error?.response?.data?.message);
+        throw new Error(error?.response?.data?.message);
+      } else {
+        console.error("Error updating cart item quantity:", error.message);
+        throw new Error(error.message);
+      }
+    }
   }
 
   async removeItem(itemId) {
-    await delay(100);
-    
-    const itemIndex = this.items.findIndex(item => item.Id === parseInt(itemId));
-    if (itemIndex === -1) {
-      throw new Error(`Cart item with id ${itemId} not found`);
-    }
+    try {
+      const params = {
+        RecordIds: [parseInt(itemId)]
+      };
 
-    this.items.splice(itemIndex, 1);
-    this.saveToStorage();
-    return [...this.items];
+      const response = await this.apperClient.deleteRecord(this.tableName, params);
+      
+      if (!response.success) {
+        console.error(response.message);
+        throw new Error(response.message);
+      }
+
+      if (response.results) {
+        const failedDeletions = response.results.filter(result => !result.success);
+        
+        if (failedDeletions.length > 0) {
+          console.error(`Failed to delete cart item records:${JSON.stringify(failedDeletions)}`);
+          
+          failedDeletions.forEach(record => {
+            if (record.message) throw new Error(record.message);
+          });
+        }
+      }
+
+      return await this.getItems();
+    } catch (error) {
+      if (error?.response?.data?.message) {
+        console.error("Error removing cart item:", error?.response?.data?.message);
+        throw new Error(error?.response?.data?.message);
+      } else {
+        console.error("Error removing cart item:", error.message);
+        throw new Error(error.message);
+      }
+    }
   }
 
   async clearCart() {
-    await delay(100);
-    this.items = [];
-    this.saveToStorage();
-    return [];
+    try {
+      const items = await this.getItems();
+      if (items.length === 0) return [];
+
+      const recordIds = items.map(item => item.Id);
+      const params = {
+        RecordIds: recordIds
+      };
+
+      const response = await this.apperClient.deleteRecord(this.tableName, params);
+      
+      if (!response.success) {
+        console.error(response.message);
+        throw new Error(response.message);
+      }
+
+      if (response.results) {
+        const failedDeletions = response.results.filter(result => !result.success);
+        
+        if (failedDeletions.length > 0) {
+          console.error(`Failed to clear cart records:${JSON.stringify(failedDeletions)}`);
+          
+          failedDeletions.forEach(record => {
+            if (record.message) throw new Error(record.message);
+          });
+        }
+      }
+
+      return [];
+    } catch (error) {
+      if (error?.response?.data?.message) {
+        console.error("Error clearing cart:", error?.response?.data?.message);
+        throw new Error(error?.response?.data?.message);
+      } else {
+        console.error("Error clearing cart:", error.message);
+        throw new Error(error.message);
+      }
+    }
   }
 
   async getItemCount() {
-    await delay(50);
-    return this.items.reduce((total, item) => total + item.quantity, 0);
+    try {
+      const items = await this.getItems();
+      return items.reduce((total, item) => total + item.quantity, 0);
+    } catch (error) {
+      console.error("Error getting cart item count:", error.message);
+      return 0;
+    }
   }
 
   async getSubtotal() {
-    await delay(50);
-    return this.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+    try {
+      const items = await this.getItems();
+      return items.reduce((total, item) => total + (item.price * item.quantity), 0);
+    } catch (error) {
+      console.error("Error calculating cart subtotal:", error.message);
+      return 0;
+    }
   }
 }
 

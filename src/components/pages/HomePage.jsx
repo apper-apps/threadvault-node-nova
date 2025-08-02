@@ -129,7 +129,7 @@ style={{
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {categories.map((category, index) => (
               <motion.div
                 key={category.Id}
@@ -143,13 +143,13 @@ style={{
                 >
                   <img
                     src={category.image}
-                    alt={category.name}
+                    alt={category.Name}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-all duration-300" />
                   <div className="absolute bottom-6 left-6 text-white">
                     <h3 className="text-2xl font-display font-bold mb-2">
-                      {category.name}
+                      {category.Name}
                     </h3>
                     <p className="text-sm opacity-90 mb-3">
                       {category.productCount} Products

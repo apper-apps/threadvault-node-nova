@@ -46,10 +46,10 @@ const CartItem = ({ item, onUpdate, onRemove }) => {
       transition={{ duration: 0.2 }}
     >
       {/* Product Image */}
-      <div className="w-20 h-20 bg-surface rounded-sm overflow-hidden flex-shrink-0">
+<div className="w-20 h-20 bg-surface rounded-sm overflow-hidden flex-shrink-0">
         <img
           src={item.image}
-          alt={item.name}
+          alt={item.Name}
           className="w-full h-full object-cover"
         />
       </div>
@@ -57,7 +57,7 @@ const CartItem = ({ item, onUpdate, onRemove }) => {
       {/* Product Details */}
       <div className="flex-1 min-w-0">
         <h3 className="font-medium text-gray-900 truncate">
-          {item.name}
+          {item.Name}
         </h3>
         
         <div className="flex items-center gap-4 mt-1 text-sm text-gray-500">

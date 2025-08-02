@@ -30,10 +30,9 @@ const ProductCard = ({ product, className = "" }) => {
     navigate(`/products/${product.Id}`);
   };
 
-  const discountedPrice = product.discount > 0 
+const discountedPrice = product.discount > 0 
     ? product.price - (product.price * product.discount / 100)
     : product.price;
-
   return (
     <motion.div
       className={`bg-white cursor-pointer group ${className}`}
@@ -46,8 +45,8 @@ const ProductCard = ({ product, className = "" }) => {
       {/* Image Container */}
       <div className="relative aspect-square overflow-hidden bg-surface">
         <img
-          src={product.images[0]}
-          alt={product.name}
+src={Array.isArray(product.images) ? product.images[0] : product.images}
+          alt={product.Name}
           className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           loading="lazy"
         />
@@ -102,8 +101,8 @@ const ProductCard = ({ product, className = "" }) => {
 
       {/* Product Info */}
       <div className="p-4">
-        <h3 className="font-medium text-gray-900 mb-1 line-clamp-2 group-hover:text-primary transition-colors">
-          {product.name}
+<h3 className="font-medium text-gray-900 mb-1 line-clamp-2 group-hover:text-primary transition-colors">
+          {product.Name}
         </h3>
         
         <p className="text-sm text-gray-500 mb-2 capitalize">
@@ -130,7 +129,7 @@ const ProductCard = ({ product, className = "" }) => {
 
           {/* Color Options Preview */}
           <div className="flex gap-1">
-            {product.colors.slice(0, 3).map((color, index) => (
+            {(Array.isArray(product.colors) ? product.colors : [product.colors]).slice(0, 3).map((color, index) => (
               <div
                 key={index}
                 className="w-3 h-3 rounded-full border border-gray-200"
@@ -145,9 +144,9 @@ const ProductCard = ({ product, className = "" }) => {
                 title={color}
               />
             ))}
-            {product.colors.length > 3 && (
+            {(Array.isArray(product.colors) ? product.colors.length : 1) > 3 && (
               <span className="text-xs text-gray-400 ml-1">
-                +{product.colors.length - 3}
+                +{(Array.isArray(product.colors) ? product.colors.length : 1) - 3}
               </span>
             )}
           </div>
