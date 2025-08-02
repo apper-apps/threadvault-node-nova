@@ -56,9 +56,9 @@ const Header = () => {
             to="/" 
             className="flex-shrink-0"
             onClick={() => setIsMobileMenuOpen(false)}
-          >
+>
             <h1 className="text-2xl font-display font-bold text-primary">
-              ThreadVault
+              Sayan Threads
             </h1>
           </Link>
 

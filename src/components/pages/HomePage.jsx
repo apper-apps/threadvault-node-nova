@@ -71,8 +71,8 @@ const HomePage = () => {
         <div className="absolute inset-0 bg-black bg-opacity-40" />
         <div 
           className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&h=800&fit=crop')"
+style={{
+            backgroundImage: "url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=1600&h=800&fit=crop')"
           }}
         />
         
@@ -83,10 +83,10 @@ const HomePage = () => {
           className="relative z-10 text-center text-white max-w-4xl mx-auto px-4"
         >
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold mb-6">
-            THREADVAULT
+            SAYAN THREADS
           </h1>
           <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
-            Discover premium fashion that defines your style. Curated collections of contemporary clothing and accessories.
+            Experience the artistry of premium threads. Handcrafted collections that weave style with sophistication.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
