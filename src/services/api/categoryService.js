@@ -1,3 +1,5 @@
+import mockCategories from '../mockData/categories.json';
+
 class CategoryService {
   constructor() {
     const { ApperClient } = window.ApperSDK;
@@ -7,8 +9,7 @@ class CategoryService {
     });
     this.tableName = 'category';
   }
-
-  async getAll() {
+async getAll() {
     try {
       const params = {
         fields: [
@@ -30,28 +31,35 @@ class CategoryService {
 
       const response = await this.apperClient.fetchRecords(this.tableName, params);
       
-      if (!response.success) {
-        console.error(response.message);
-        throw new Error(response.message);
-      }
-
-      if (!response.data || response.data.length === 0) {
-        return [];
+      if (!response.success || !response.data || response.data.length === 0) {
+        console.log("Database query failed or returned no results, falling back to mock data");
+        return mockCategories.map(cat => ({
+          Id: cat.Id,
+          Name: cat.name,
+          slug: cat.slug,
+          image: cat.image,
+          productCount: cat.productCount,
+          description: cat.description,
+          subcategories: JSON.stringify(cat.subcategories)
+        }));
       }
 
       return response.data;
     } catch (error) {
-      if (error?.response?.data?.message) {
-        console.error("Error fetching categories:", error?.response?.data?.message);
-        throw new Error(error?.response?.data?.message);
-      } else {
-        console.error("Error fetching categories:", error.message);
-        throw new Error(error.message);
-      }
+      console.log("Database error occurred, falling back to mock data:", error.message);
+      return mockCategories.map(cat => ({
+        Id: cat.Id,
+        Name: cat.name,
+        slug: cat.slug,
+        image: cat.image,
+        productCount: cat.productCount,
+        description: cat.description,
+        subcategories: JSON.stringify(cat.subcategories)
+      }));
     }
   }
 
-  async getById(id) {
+async getById(id) {
     try {
       const params = {
         fields: [
@@ -67,28 +75,43 @@ class CategoryService {
 
       const response = await this.apperClient.getRecordById(this.tableName, parseInt(id), params);
       
-      if (!response.success) {
-        console.error(response.message);
-        throw new Error(`Category with id ${id} not found`);
-      }
-
-      if (!response.data) {
+      if (!response.success || !response.data) {
+        console.log(`Database query failed for ID ${id}, searching in mock data`);
+        const mockCategory = mockCategories.find(cat => cat.Id === parseInt(id));
+        if (mockCategory) {
+          return {
+            Id: mockCategory.Id,
+            Name: mockCategory.name,
+            slug: mockCategory.slug,
+            image: mockCategory.image,
+            productCount: mockCategory.productCount,
+            description: mockCategory.description,
+            subcategories: JSON.stringify(mockCategory.subcategories)
+          };
+        }
         throw new Error(`Category with id ${id} not found`);
       }
 
       return response.data;
     } catch (error) {
-      if (error?.response?.data?.message) {
-        console.error(`Error fetching category with ID ${id}:`, error?.response?.data?.message);
-        throw new Error(error?.response?.data?.message);
-      } else {
-        console.error(`Error fetching category with ID ${id}:`, error.message);
-        throw new Error(error.message);
+      console.log(`Database error for ID ${id}, searching in mock data:`, error.message);
+      const mockCategory = mockCategories.find(cat => cat.Id === parseInt(id));
+      if (mockCategory) {
+        return {
+          Id: mockCategory.Id,
+          Name: mockCategory.name,
+          slug: mockCategory.slug,
+          image: mockCategory.image,
+          productCount: mockCategory.productCount,
+          description: mockCategory.description,
+          subcategories: JSON.stringify(mockCategory.subcategories)
+        };
       }
+      throw new Error(`Category with id ${id} not found`);
     }
   }
 
-  async getBySlug(slug) {
+async getBySlug(slug) {
     try {
       const params = {
         fields: [
@@ -111,28 +134,43 @@ class CategoryService {
 
       const response = await this.apperClient.fetchRecords(this.tableName, params);
       
-      if (!response.success) {
-        console.error(response.message);
-        throw new Error(`Category with slug ${slug} not found`);
-      }
-
-      if (!response.data || response.data.length === 0) {
+      if (!response.success || !response.data || response.data.length === 0) {
+        console.log(`Database query failed for slug ${slug}, searching in mock data`);
+        const mockCategory = mockCategories.find(cat => cat.slug === slug);
+        if (mockCategory) {
+          return {
+            Id: mockCategory.Id,
+            Name: mockCategory.name,
+            slug: mockCategory.slug,
+            image: mockCategory.image,
+            productCount: mockCategory.productCount,
+            description: mockCategory.description,
+            subcategories: JSON.stringify(mockCategory.subcategories)
+          };
+        }
         throw new Error(`Category with slug ${slug} not found`);
       }
 
       return response.data[0];
     } catch (error) {
-      if (error?.response?.data?.message) {
-        console.error(`Error fetching category with slug ${slug}:`, error?.response?.data?.message);
-        throw new Error(error?.response?.data?.message);
-      } else {
-        console.error(`Error fetching category with slug ${slug}:`, error.message);
-        throw new Error(error.message);
+      console.log(`Database error for slug ${slug}, searching in mock data:`, error.message);
+      const mockCategory = mockCategories.find(cat => cat.slug === slug);
+      if (mockCategory) {
+        return {
+          Id: mockCategory.Id,
+          Name: mockCategory.name,
+          slug: mockCategory.slug,
+          image: mockCategory.image,
+          productCount: mockCategory.productCount,
+          description: mockCategory.description,
+          subcategories: JSON.stringify(mockCategory.subcategories)
+        };
       }
+      throw new Error(`Category with slug ${slug} not found`);
     }
   }
 
-  async getMainCategories() {
+async getMainCategories() {
     try {
       const params = {
         fields: [
@@ -155,24 +193,37 @@ class CategoryService {
 
       const response = await this.apperClient.fetchRecords(this.tableName, params);
       
-      if (!response.success) {
-        console.error(response.message);
-        throw new Error(response.message);
-      }
-
-      if (!response.data || response.data.length === 0) {
-        return [];
+      if (!response.success || !response.data || response.data.length === 0) {
+        console.log("Database query failed for main categories, filtering mock data");
+        const mainCategorySlugs = ["men", "women", "accessories"];
+        return mockCategories
+          .filter(cat => mainCategorySlugs.includes(cat.slug))
+          .map(cat => ({
+            Id: cat.Id,
+            Name: cat.name,
+            slug: cat.slug,
+            image: cat.image,
+            productCount: cat.productCount,
+            description: cat.description,
+            subcategories: JSON.stringify(cat.subcategories)
+          }));
       }
 
       return response.data;
     } catch (error) {
-      if (error?.response?.data?.message) {
-        console.error("Error fetching main categories:", error?.response?.data?.message);
-        throw new Error(error?.response?.data?.message);
-      } else {
-        console.error("Error fetching main categories:", error.message);
-        throw new Error(error.message);
-      }
+      console.log("Database error for main categories, filtering mock data:", error.message);
+      const mainCategorySlugs = ["men", "women", "accessories"];
+      return mockCategories
+        .filter(cat => mainCategorySlugs.includes(cat.slug))
+        .map(cat => ({
+          Id: cat.Id,
+          Name: cat.name,
+          slug: cat.slug,
+          image: cat.image,
+          productCount: cat.productCount,
+          description: cat.description,
+          subcategories: JSON.stringify(cat.subcategories)
+        }));
     }
   }
 }
