@@ -1,0 +1,76 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          DEFAULT: "#000000",
+          50: "#f7f7f7",
+          100: "#e3e3e3",
+          200: "#c8c8c8",
+          300: "#a4a4a4",
+          400: "#818181",
+          500: "#666666",
+          600: "#515151",
+          700: "#434343",
+          800: "#383838",
+          900: "#000000",
+        },
+        accent: {
+          DEFAULT: "#FF4646",
+          50: "#fff5f5",
+          100: "#fed7d7",
+          200: "#feb2b2",
+          300: "#fc8181",
+          400: "#f56565",
+          500: "#FF4646",
+          600: "#e53e3e",
+          700: "#c53030",
+          800: "#9b2c2c",
+          900: "#742a2a",
+        },
+        surface: "#F8F8F8",
+        success: "#00C851",
+        warning: "#FFBB33",
+        error: "#FF4444",
+        info: "#33B5E5",
+      },
+      fontFamily: {
+        'display': ['Bebas Neue', 'sans-serif'],
+        'sans': ['Inter', 'sans-serif'],
+      },
+      fontSize: {
+        'xs': ['0.75rem', { lineHeight: '1rem' }],
+        'sm': ['0.875rem', { lineHeight: '1.25rem' }],
+        'base': ['1rem', { lineHeight: '1.5rem' }],
+        'lg': ['1.125rem', { lineHeight: '1.75rem' }],
+        'xl': ['1.25rem', { lineHeight: '1.75rem' }],
+        '2xl': ['1.5rem', { lineHeight: '2rem' }],
+        '3xl': ['1.875rem', { lineHeight: '2.25rem' }],
+        '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
+        '5xl': ['3rem', { lineHeight: '1' }],
+        '6xl': ['3.75rem', { lineHeight: '1' }],
+        '7xl': ['4.5rem', { lineHeight: '1' }],
+        '8xl': ['6rem', { lineHeight: '1' }],
+        '9xl': ['8rem', { lineHeight: '1' }],
+      },
+      animation: {
+        'bounce-soft': 'bounce 0.3s ease-in-out',
+        'slide-in': 'slideIn 0.2s ease-out',
+        'fade-in': 'fadeIn 0.3s ease-out',
+      },
+      keyframes: {
+        slideIn: {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(0)' },
+        },
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+      },
+    },
+  },
+  plugins: [],
+}

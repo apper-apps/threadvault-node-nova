@@ -1,0 +1,255 @@
+[
+  {
+    "Id": 1,
+    "name": "Classic White Sneakers",
+    "price": 89.99,
+    "originalPrice": 119.99,
+    "discount": 25,
+    "images": [
+      "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=500&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1556906781-9a412961c28c?w=500&h=600&fit=crop"
+    ],
+    "category": "shoes",
+    "subcategory": "sneakers",
+    "gender": "unisex",
+    "sizes": ["US 6", "US 7", "US 8", "US 9", "US 10", "US 11"],
+    "colors": ["White", "Black", "Gray"],
+    "description": "Classic white sneakers perfect for everyday wear. Made with premium materials and comfortable padding.",
+    "inStock": true,
+    "featured": true,
+    "newArrival": false,
+    "tags": ["comfortable", "casual", "versatile"]
+  },
+  {
+    "Id": 2,
+    "name": "Leather Jacket",
+    "price": 299.99,
+    "originalPrice": 399.99,
+    "discount": 25,
+    "images": [
+      "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1520975954732-35dd22299054?w=500&h=600&fit=crop"
+    ],
+    "category": "outerwear",
+    "subcategory": "jackets",
+    "gender": "men",
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "colors": ["Black", "Brown"],
+    "description": "Premium leather jacket with classic biker styling. Genuine leather construction with quilted lining.",
+    "inStock": true,
+    "featured": true,
+    "newArrival": false,
+    "tags": ["premium", "leather", "biker"]
+  },
+  {
+    "Id": 3,
+    "name": "Summer Floral Dress",
+    "price": 79.99,
+    "originalPrice": null,
+    "discount": 0,
+    "images": [
+      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=500&h=600&fit=crop"
+    ],
+    "category": "dresses",
+    "subcategory": "casual",
+    "gender": "women",
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "colors": ["Floral Blue", "Floral Pink"],
+    "description": "Light and airy summer dress with beautiful floral print. Perfect for warm weather occasions.",
+    "inStock": true,
+    "featured": false,
+    "newArrival": true,
+    "tags": ["summer", "floral", "lightweight"]
+  },
+  {
+    "Id": 4,
+    "name": "Denim Jeans",
+    "price": 69.99,
+    "originalPrice": null,
+    "discount": 0,
+    "images": [
+      "https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=500&h=600&fit=crop"
+    ],
+    "category": "bottoms",
+    "subcategory": "jeans",
+    "gender": "unisex",
+    "sizes": ["28", "30", "32", "34", "36", "38"],
+    "colors": ["Blue", "Black", "Light Blue"],
+    "description": "Classic fit denim jeans made from premium cotton. Comfortable and durable for everyday wear.",
+    "inStock": true,
+    "featured": false,
+    "newArrival": false,
+    "tags": ["classic", "denim", "comfortable"]
+  },
+  {
+    "Id": 5,
+    "name": "Wool Sweater",
+    "price": 129.99,
+    "originalPrice": null,
+    "discount": 0,
+    "images": [
+      "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1583743814966-8936f37f4678?w=500&h=600&fit=crop"
+    ],
+    "category": "tops",
+    "subcategory": "sweaters",
+    "gender": "unisex",
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "colors": ["Gray", "Navy", "Cream"],
+    "description": "Cozy wool sweater perfect for cooler weather. Made from premium merino wool with ribbed cuffs.",
+    "inStock": true,
+    "featured": false,
+    "newArrival": true,
+    "tags": ["wool", "cozy", "premium"]
+  },
+  {
+    "Id": 6,
+    "name": "Athletic Shorts",
+    "price": 39.99,
+    "originalPrice": 49.99,
+    "discount": 20,
+    "images": [
+      "https://images.unsplash.com/photo-1506629905587-4791d5d61860?w=500&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=500&h=600&fit=crop"
+    ],
+    "category": "bottoms",
+    "subcategory": "shorts",
+    "gender": "men",
+    "sizes": ["S", "M", "L", "XL"],
+    "colors": ["Black", "Navy", "Gray"],
+    "description": "Lightweight athletic shorts with moisture-wicking fabric. Perfect for workouts and casual wear.",
+    "inStock": true,
+    "featured": false,
+    "newArrival": false,
+    "tags": ["athletic", "moisture-wicking", "lightweight"]
+  },
+  {
+    "Id": 7,
+    "name": "Silk Blouse",
+    "price": 149.99,
+    "originalPrice": null,
+    "discount": 0,
+    "images": [
+      "https://images.unsplash.com/photo-1564257577-8a8b7fd84734?w=500&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1582142306909-195724d33c70?w=500&h=600&fit=crop"
+    ],
+    "category": "tops",
+    "subcategory": "blouses",
+    "gender": "women",
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "colors": ["White", "Black", "Cream"],
+    "description": "Elegant silk blouse with classic styling. Perfect for professional or formal occasions.",
+    "inStock": true,
+    "featured": true,
+    "newArrival": false,
+    "tags": ["silk", "elegant", "professional"]
+  },
+  {
+    "Id": 8,
+    "name": "Canvas Tote Bag",
+    "price": 29.99,
+    "originalPrice": null,
+    "discount": 0,
+    "images": [
+      "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1590736969955-71cc94901144?w=500&h=600&fit=crop"
+    ],
+    "category": "accessories",
+    "subcategory": "bags",
+    "gender": "unisex",
+    "sizes": ["One Size"],
+    "colors": ["Natural", "Black", "Navy"],
+    "description": "Sturdy canvas tote bag perfect for everyday use. Spacious interior with reinforced handles.",
+    "inStock": true,
+    "featured": false,
+    "newArrival": false,
+    "tags": ["canvas", "sturdy", "everyday"]
+  },
+  {
+    "Id": 9,
+    "name": "Baseball Cap",
+    "price": 24.99,
+    "originalPrice": null,
+    "discount": 0,
+    "images": [
+      "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1575428652377-a2d80fc2db01?w=500&h=600&fit=crop"
+    ],
+    "category": "accessories",
+    "subcategory": "hats",
+    "gender": "unisex",
+    "sizes": ["One Size"],
+    "colors": ["Black", "Navy", "White"],
+    "description": "Classic baseball cap with adjustable strap. Made from durable cotton twill.",
+    "inStock": true,
+    "featured": false,
+    "newArrival": false,
+    "tags": ["classic", "adjustable", "cotton"]
+  },
+  {
+    "Id": 10,
+    "name": "Running Shoes",
+    "price": 119.99,
+    "originalPrice": 149.99,
+    "discount": 20,
+    "images": [
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=500&h=600&fit=crop"
+    ],
+    "category": "shoes",
+    "subcategory": "athletic",
+    "gender": "unisex",
+    "sizes": ["US 6", "US 7", "US 8", "US 9", "US 10", "US 11"],
+    "colors": ["Black/White", "Blue/White", "Gray/Orange"],
+    "description": "High-performance running shoes with advanced cushioning and breathable mesh upper.",
+    "inStock": true,
+    "featured": false,
+    "newArrival": true,
+    "tags": ["running", "performance", "cushioning"]
+  },
+  {
+    "Id": 11,
+    "name": "Cashmere Scarf",
+    "price": 89.99,
+    "originalPrice": null,
+    "discount": 0,
+    "images": [
+      "https://images.unsplash.com/photo-1520903920243-00d872a2d1c9?w=500&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?w=500&h=600&fit=crop"
+    ],
+    "category": "accessories",
+    "subcategory": "scarves",
+    "gender": "unisex",
+    "sizes": ["One Size"],
+    "colors": ["Gray", "Cream", "Black"],
+    "description": "Luxurious cashmere scarf with soft texture. Perfect accessory for cold weather.",
+    "inStock": true,
+    "featured": false,
+    "newArrival": false,
+    "tags": ["cashmere", "luxurious", "soft"]
+  },
+  {
+    "Id": 12,
+    "name": "Formal Shirt",
+    "price": 59.99,
+    "originalPrice": null,
+    "discount": 0,
+    "images": [
+      "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=500&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500&h=600&fit=crop"
+    ],
+    "category": "tops",
+    "subcategory": "shirts",
+    "gender": "men",
+    "sizes": ["S", "M", "L", "XL", "XXL"],
+    "colors": ["White", "Light Blue", "Black"],
+    "description": "Crisp formal shirt made from premium cotton. Perfect for business and formal occasions.",
+    "inStock": true,
+    "featured": false,
+    "newArrival": false,
+    "tags": ["formal", "cotton", "business"]
+  }
+]

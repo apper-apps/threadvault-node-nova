@@ -1,0 +1,134 @@
+[
+  {
+    "Id": 1,
+    "name": "Men's Fashion",
+    "slug": "men",
+    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop",
+    "productCount": 145,
+    "description": "Discover the latest trends in men's fashion",
+    "subcategories": [
+      {
+        "Id": 11,
+        "name": "Shirts",
+        "slug": "shirts",
+        "productCount": 35
+      },
+      {
+        "Id": 12,
+        "name": "Pants",
+        "slug": "pants",
+        "productCount": 28
+      },
+      {
+        "Id": 13,
+        "name": "Jackets",
+        "slug": "jackets",
+        "productCount": 22
+      },
+      {
+        "Id": 14,
+        "name": "Shoes",
+        "slug": "shoes",
+        "productCount": 45
+      },
+      {
+        "Id": 15,
+        "name": "Accessories",
+        "slug": "accessories",
+        "productCount": 15
+      }
+    ]
+  },
+  {
+    "Id": 2,
+    "name": "Women's Fashion",
+    "slug": "women",
+    "image": "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=600&h=400&fit=crop",
+    "productCount": 198,
+    "description": "Explore our curated collection of women's clothing",
+    "subcategories": [
+      {
+        "Id": 21,
+        "name": "Dresses",
+        "slug": "dresses",
+        "productCount": 42
+      },
+      {
+        "Id": 22,
+        "name": "Tops",
+        "slug": "tops",
+        "productCount": 58
+      },
+      {
+        "Id": 23,
+        "name": "Bottoms",
+        "slug": "bottoms",
+        "productCount": 35
+      },
+      {
+        "Id": 24,
+        "name": "Outerwear",
+        "slug": "outerwear",
+        "productCount": 28
+      },
+      {
+        "Id": 25,
+        "name": "Shoes",
+        "slug": "shoes",
+        "productCount": 35
+      }
+    ]
+  },
+  {
+    "Id": 3,
+    "name": "Accessories",
+    "slug": "accessories",
+    "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&h=400&fit=crop",
+    "productCount": 87,
+    "description": "Complete your look with our accessory collection",
+    "subcategories": [
+      {
+        "Id": 31,
+        "name": "Bags",
+        "slug": "bags",
+        "productCount": 32
+      },
+      {
+        "Id": 32,
+        "name": "Jewelry",
+        "slug": "jewelry",
+        "productCount": 25
+      },
+      {
+        "Id": 33,
+        "name": "Watches",
+        "slug": "watches",
+        "productCount": 18
+      },
+      {
+        "Id": 34,
+        "name": "Sunglasses",
+        "slug": "sunglasses",
+        "productCount": 12
+      }
+    ]
+  },
+  {
+    "Id": 4,
+    "name": "New Arrivals",
+    "slug": "new-arrivals",
+    "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=400&fit=crop",
+    "productCount": 24,
+    "description": "Check out our latest additions to the collection",
+    "subcategories": []
+  },
+  {
+    "Id": 5,
+    "name": "Sale",
+    "slug": "sale",
+    "image": "https://images.unsplash.com/photo-1607083206968-13611e3d76db?w=600&h=400&fit=crop",
+    "productCount": 67,
+    "description": "Don't miss out on these amazing deals",
+    "subcategories": []
+  }
+]
